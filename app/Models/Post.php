@@ -12,7 +12,7 @@ class Post extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ['description','path_photo'];
+    protected $fillable = ['description','path_photo','client_id'];
 
     public function commentaires()
     {

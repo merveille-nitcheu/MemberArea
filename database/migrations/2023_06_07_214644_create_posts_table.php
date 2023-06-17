@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->string('description');
-            $table->string('path_photo');
+            $table->text('description')->nullable();
+            $table->string('path_photo')->nullable();
+            $table->string('status')->default('actif');
             $table->timestamps();
             $table->softDeletes();
             // Inserer la clé etrangère

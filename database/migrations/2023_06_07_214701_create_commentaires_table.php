@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('commentaires', function (Blueprint $table) {
             $table->id();
-            $table->string('nom_description');
+            $table->text('nom_description');
             $table->timestamps();
             $table->softDeletes();
             // Inserer la clé etrangère
             $table->foreignId('post_id')->constrained()->onDelete('cascade');
-            $table->foreignId('commentaire_id')->constrained()->onDelete('cascade');
+            $table->foreignId('client_id')->constrained()->onDelete('cascade');
+            $table->foreignId('commentaire_id')->nullable()->constrained()->onDelete('cascade');
         });
     }
 
