@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 
 /*
@@ -22,9 +23,8 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/',[PostController::class,'index'])->name('dashboard');
-    Route::get('/admin/dashboard', function () {
-        return view('dashboard_admin');
-    })->name('admin');
+    Route::get('/admin/dashboard', [HomeController::class,'dashboard'])->name('admin');
+
 
 
 });
@@ -37,4 +37,18 @@ Route::get('publications/{id}', [PostController::class,'viewpublications'])->nam
 Route::get('viewpost/{id}', [PostController::class,'viewpost'])->name('viewpost');
 Route::post('update/{id}', [PostController::class,'update'])->name('update');
 Route::post('destroy/{id}', [PostController::class,'destroy'])->name('destroy');
+Route::post('activer/{id}', [PostController::class,'activer'])->name('activer');
+
+
+
+Route::get('posts',  [HomeController::class,'posts']);
+
+Route::get('clt', [HomeController::class,'clt']);
+Route::get('/crud/{id}', [HomeController::class,'show']);
+
+Route::post('/crud', [HomeController::class,'store']);
+Route::put('/crud/{id}', [HomeController::class,'update']);
+Route::post('/activer/{id}', [HomeController::class,'activer'])->name('activer');
+
+
 

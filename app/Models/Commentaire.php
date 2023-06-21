@@ -32,7 +32,7 @@ class Commentaire extends Model
     }
     public function parent()
     {
-        return $this->BelonsTo(Commentaire::class);
+        return $this->BelongsTo(Commentaire::class);
 
     }
 }

@@ -69,6 +69,16 @@
                                     <!--end::Image-->
                                     <!--begin::Action-->
                                     <div class="overlay-layer card-rounded bg-dark bg-opacity-25">
+                                        @if($post->status =='inactif')
+
+                                        <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                            <mask fill="white">
+                                                <use xlink:href="#path-1"/>
+                                            </mask>
+                                            <g/>
+                                            <path d="M7,10 L7,8 C7,5.23857625 9.23857625,3 12,3 C14.7614237,3 17,5.23857625 17,8 L17,10 L18,10 C19.1045695,10 20,10.8954305 20,12 L20,18 C20,19.1045695 19.1045695,20 18,20 L6,20 C4.8954305,20 4,19.1045695 4,18 L4,12 C4,10.8954305 4.8954305,10 6,10 L7,10 Z M12,5 C10.3431458,5 9,6.34314575 9,8 L9,10 L15,10 L15,8 C15,6.34314575 13.6568542,5 12,5 Z" fill="#000000" style="fill: #cb0c9f"/>
+                                    </svg></span>
+                                        @endif
 
 
                                     </div>
@@ -97,10 +107,15 @@
                                         <a href="/" class="text-gray-700 text-hover-primary mx-2">publié le {{$post->created_at->format('d/m/Y')}}</a>
                                         <!--end::Author-->
                                     </div>
-                                    <div class="fs-6 fw-bolder mt-5">
-                                        <a href="#formedit" class="btn btn-info me-20" data-bs-toggle="modal">Edit</a>
-                                        <a href="#deletepost" class="btn btn-danger" style="margin-left: 85px;"data-bs-toggle="modal">Delete</a>
+                                    <div class=" d-flex justify-content-end fs-6 fw-bolder mt-5">
+                                        <a href="#formedit" class="btn btn-sm btn-info me-5" data-bs-toggle="modal">Edit</a>
+                                        @if($post->status=='actif')
+                                        <a href="#deletepost" class="btn btn-sm btn-danger" data-bs-toggle="modal">Bloquer</a>
+                                        @elseif ($post->status=='inactif')
+                                        <a href="#activerpost" class="btn btn-sm btn-danger" data-bs-toggle="modal">Activer</a>
+                                        @endif
                                     </div>
+
                                         <!--begin::Date-->
 
                                         <!--end::Action-->
@@ -252,13 +267,44 @@
 
                                         <div class="modal-body">
 
-                                            <p class="mt-5">Etes-vous sur de vouloir supprimer</p>
+                                            <p class="mt-5">Voulez-vous vraiment bloquer ce post</p>
                                         </div>
 
                                         <div class=" d-flex justify-content-end modal-footer">
 
                                             <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Fermer</button>
-                                            <button type="submit" class="btn" style="background-color: #cb0c9f" >Supprimer</button>
+                                            <button type="submit" class="btn" style="background-color: #cb0c9f" >Bloquer</button>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" tabindex="-1" id="activerpost">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form class="form fv-plugins-bootstrap5 fv-plugins-framework" method="POST" action="{{route('activer',$post->id)}}" enctype="multipart/form-data">
+                                            <!--begin::Modal header-->
+                                            @csrf
+
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Post du {{$post->created_at->format('d/m/Y')}}</h5>
+
+                                            <!--begin::Close-->
+                                            <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                                                <span class="svg-icon svg-icon-2x"></span>
+                                            </div>
+                                            <!--end::Close-->
+                                        </div>
+
+                                        <div class="modal-body">
+
+                                            <p class="mt-5">Voulez-vous vraiment débloquer ce post</p>
+                                        </div>
+
+                                        <div class=" d-flex justify-content-end modal-footer">
+
+                                            <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Fermer</button>
+                                            <button type="submit" class="btn" style="background-color: #cb0c9f" >Activer</button>
                                         </div>
                                         </form>
                                     </div>

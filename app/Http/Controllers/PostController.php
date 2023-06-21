@@ -110,12 +110,33 @@ class PostController extends Controller
     public function destroy(string $id)
     {
         $post = Post::findOrFail($id);
-        $post->delete();
+        if ($post->status =="actif"){
+
+            $post->status = "inactif";
+            //dd($post->status);
+        }
+        $post->save();
+       // $post->delete();
+        return redirect()->back();
+    }
+
+
+    public function activer(string $id)
+    {
+        $post = Post::findOrFail($id);
+        if ($post->status =="inactif"){
+
+            $post->status = "actif";
+            //dd($post->status);
+        }
+        $post->save();
+       // $post->delete();
         return redirect()->back();
     }
     public function savecomment(Request $request, string $id)
 
     {
+       
         $post = Post::findOrFail($id);
         $comments= Commentaire::where('post_id',$post->id);
         $nbcomments = $comments->count();

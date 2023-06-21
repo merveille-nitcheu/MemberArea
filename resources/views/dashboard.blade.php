@@ -89,8 +89,8 @@
 
                             <textarea class="form-control border-0 p-0 pe-10 resize-none min-h-25px my-10" data-kt-autosize="true" rows="1" placeholder="Quoi de neuf ? ..." name="description"></textarea>
                             <!--end::Editor-->
-                            <div class=" w-700px h-300px" id="bloc_photo" style="display: none">
-                                <img src="" alt="" id="image"  height='100%' width='100%' class="justify-content-center" style="object-fit: cover;margin-right:30px">
+                            <div class=" w-600px h-300px" id="bloc_photo" style="display: none">
+                                <img src="" alt="" id="image"  height='100%' width='100%'  style="object-fit: cover;margin-right:100px">
 
                             </div>
                             <div class="separator mx-3 my-5"></div>
@@ -154,7 +154,12 @@
                                 <div class="d-flex align-items-center flex-grow-1">
                                     <!--begin::Avatar-->
                                     <div class="symbol symbol-45px me-5 object-cover">
+                                        @if($post->client->user->profile_photo_path)
                                         <img src="{{Storage::url($post->client->user->profile_photo_path)}}" alt="manu" style="background-color:#EBF4FF"/>
+                                        @else
+                                        <img src="{{url('assets/media/logos/logo.png')}}" alt="manu" style="background-color:#EBF4FF"/>
+                                        @endif
+
                                     </div>
                                     <!--end::Avatar-->
                                     <!--begin::Info-->
@@ -193,7 +198,7 @@
                             <!--begin::Post-->
                             <div class="mb-5">
                                 <!--begin::Image-->
-                                <div class="bgi-no-repeat bgi-size-cover rounded h-300px w-700px mb-5">
+                                <div class="bgi-no-repeat bgi-size-cover rounded h-300px w-600px mb-5">
                                     <img src="{{Storage::url($post->path_photo)}}"  alt="" style="width:100%; height:100%;margin-right:30px">
                                 </div>
                                 <!--end::Image-->
@@ -221,10 +226,15 @@
                                 <!--begin::Reply-->
                                 @foreach($post->commentaires->whereNull('commentaire_id') as $key => $commentaire)
                                 <div onclick="Viewsouscomments(this)">
-                                        <div class="d-flex mb-5">
+                                        <div class="d-flex mb-5" id="blocsouscomments">
                                             <!--begin::Avatar-->
                                             <div class="symbol symbol-45px me-5">
-                                                <img src="{{Storage::url($commentaire->client->user->profile_photo_path)}}" alt="" style="background-color:#EBF4FF"/>
+                                                @if($commentaire->client->user->profile_photo_path)
+                                                <img src="{{Storage::url($commentaire->client->user->profile_photo_path)}}" alt="manu" style="background-color:#EBF4FF"/>
+                                                @else
+                                                <img src="{{url('assets/media/logos/logo.png')}}" alt="manu" style="background-color:#EBF4FF"/>
+                                                @endif
+
                                             </div>
                                             <!--end::Avatar-->
                                             <!--begin::Info-->
@@ -281,7 +291,12 @@
 
                                                 <!--begin::Avatar-->
                                                 <div class="symbol symbol-45px me-5">
-                                                    <img src="{{Storage::url($replie->client->user->profile_photo_path)}}" alt="" style="background-color:#EBF4FF"/>
+                                                    @if($replie->client->user->profile_photo_path)
+                                                    <img src="{{Storage::url($replie->client->user->profile_photo_path)}}" alt="manu" style="background-color:#EBF4FF"/>
+                                                    @else
+                                                    <img src="{{url('assets/media/logos/logo.png')}}" alt="manu" style="background-color:#EBF4FF"/>
+                                                    @endif
+
                                                 </div>
 
 
@@ -390,7 +405,12 @@
                                         <div class="d-flex align-items-center">
                                             <!--begin::Avatar-->
                                             <div class="symbol symbol-45px symbol-circle">
-                                                 <img alt="Pic" src="{{Storage::url($client->profile_photo_path)}}"/>
+                                                @if($client->profile_photo_path)
+                                                <img src="{{Storage::url($client->profile_photo_path)}}" alt="manu" style="background-color:#EBF4FF"/>
+                                                @else
+                                                <img src="{{url('assets/media/logos/logo.png')}}" alt="manu" style="background-color:#EBF4FF"/>
+                                                @endif
+
                                                 <div class="symbol-badge bg-success start-100 top-100 border-4 h-15px w-15px ms-n2 mt-n2"></div>
                                             </div>
                                             <!--end::Avatar-->
@@ -479,7 +499,7 @@
         }else{
             let elemnt = e.lastElementChild
             elemnt.style.display = "none"
-            e.children[1].style.display="none"
+            //e.children[1].style.display="none"
             n = true
         }
 
